@@ -1,15 +1,18 @@
+var tem = '<div class = "pos"><img v-for = "(item, index) in this.pictures" :key = "index" v-bind:src = "item.path" v-bind:class = "{tran: item.back, blur: item.blur}" class = "picture" @mouseover = "qrCode(item, index)" @click = "jump"/><div v-bind:class = "{towards: pre}" class = "link" @click = "jump"></div></div>';
+
 export default {
+    template: tem,
     data() {
         return {
-            //未悬浮时，link下移
-            pre: false,
+            //未悬浮时，link堆叠下移
+            pre: true,
         }
     },
     methods:{
         //悬浮触发链接
         qrCode(item, index){
-            this.pre = true;
-            
+            this.pre = false;
+
             var image = document.getElementsByClassName("picture")[index];
 
             //根据名称，选择不同链接
@@ -33,18 +36,22 @@ export default {
             item.blur = true;
             //image.className += ' blur';
             image.onmouseleave = function(){
+                this.pre = true;
                 item.blur = false;
             }
-
             link.onmouseover = function(){
+                this.pre = false;
                 item.blur = true;
             }
             link.onmouseleave = function(){
+                this.pre = true;
                 item.blur = false;
             }
         },
         jump(){
-            window.location.href = "https://www.baidu.com";
+            if(parseInt(window.innerWidth) <= 800){
+                window.location.href = "https://www.baidu.com";
+            }
         }
     },
 }

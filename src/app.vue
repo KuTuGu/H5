@@ -1,7 +1,8 @@
 <template>
   <div id = "app">
     <div class = "navigation">
-        <router-link class = "select" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}"><div class = "active">{{item.name}}</div></router-link>
+        <!-- exact确保只有选中才改变颜色 -->
+        <router-link class = "select" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact><div class = "active">{{item.name}}</div></router-link>
     </div>
     <div class = "present">
         <router-view></router-view>
@@ -94,8 +95,8 @@ body{
   line-height: $picWidth;
   text-align: center;
   opacity: 0; 
+  z-index: 1;
   transition: opacity 2s;
-  z-index: -1;
   position: absolute;
   background: url(/static/qr.png);
 }
@@ -131,25 +132,6 @@ body{
     left:0;
 }
 
-.title{
-  font-size:30px;
-  color: transparent;
-  background-image: linear-gradient(to right,blue, purple 10%,blue 20%,purple 30%,blue 40%,purple 50%, blue 60%, purple 70%, blue 80%, purple 90%,blue);
-  -webkit-background-clip: text;
-  background-size: 200%,100%;
-  transform: translate(0,20px);   /*鼠标移走，文字下移*/
-  transition: transform .8s,opacity .8s;  /*设置动画时间*/
-  animation: 4s flowlight linear infinite; /*无限匀速执行自定义行为*/
-  display: none;/*默认pc*/
-}
-@keyframes flowlight{
-    0%{/*初始状态，也可以用from*/
-      background-position: 0 0;
-    }
-    100%{/*最终状态，也可以用to*/
-      background-position: -100% 0;   
-    }
-}
 .link:hover{
   .title{
     transform: translate(0);
@@ -163,7 +145,7 @@ body{
             filter: blur(10px);
 }
 .towards{
-  z-index: 1;
+  display: none;
 }
 /*媒体查询, 移动端*/
 @media screen and (max-width: 800px){
@@ -176,12 +158,13 @@ body{
   .pos{
     width: $picWidth;
   }
-  .title{
-    display: inline;
-  }
   .link{
     background-image: none;
     background-color: black;
+  }
+  .title{
+    font-size: 30px;
+    color: white;
   }
 }
 </style>

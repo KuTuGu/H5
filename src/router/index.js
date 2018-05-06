@@ -1,41 +1,38 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import all from '@/components/all.vue'
-import hiring from '@/components/hiring'
-import festival from '@/components/festival'
-import activity from '@/components/activity'
-import other from '@/components/other'
+
+import sort from '../components/sort'
 
 Vue.use(Router)
 
 export default new Router({
-  /*mode: 'history',*/
+  mode: 'history',
   routes: [
     {
-      path: '/', //设置默认路由，后面不用再添加此路由
+      path: '/',
       name: 'all',
-      component: all
-    }, 
+      component: sort.all
+    },
     {
       path: '/components/hiring',
       name: 'hiring',
-      component: hiring
+      component: sort.hiring
     },
     {
       path: '/components/festival',
       name: 'festival',
-      component: festival
+      component: sort.festival
     },
     {
       path: '/components/activity',
       name: 'activity',
-      component: activity
+      component: sort.activity
     },
     {
       path: '/components/other',
       name: 'other',
-      component: other
+      component: sort.other
     },
   ]
 })
