@@ -1,7 +1,8 @@
 <script>
     import myMixin from '../mixin.js'
+    import Vue from 'vue'
 
-    var all = {
+    var all = Vue.extend({
         name: 'all',
         data() {
             return {
@@ -10,9 +11,9 @@
             }
         },
         mixins: [myMixin],
-    }
+    })
 
-    var festival = {
+    var festival = Vue.extend({
         name: 'festival',
         data(){
             return {
@@ -20,9 +21,9 @@
             }
         },
         mixins: [myMixin],
-    }
+    })
 
-    var activity = {
+    var activity = Vue.extend({
         name: 'activity',
         data(){
             return {
@@ -30,9 +31,9 @@
             }
         },
         mixins: [myMixin],
-    }
+    })
 
-    var hiring = {
+    var hiring = Vue.extend({
         name: 'hiring',
         data(){
             return {
@@ -40,9 +41,9 @@
             }
         },
         mixins: [myMixin],
-    }
+    })
 
-    var other = {
+    var other = Vue.extend({
         name: 'other',
         data(){
             return {
@@ -50,7 +51,7 @@
             }
         },
         mixins: [myMixin],
-    }
+    })
 
     export default {
         'all': all, 
