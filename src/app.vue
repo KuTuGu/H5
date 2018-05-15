@@ -1,12 +1,14 @@
 <template>
   <div id = "app">
+    <input v-focus="conso"
     <div class = "navigation">
         <!-- exact确保只有选中才改变颜色 -->
-        <router-link class = "select" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact><div class = "active">{{item.name}}</div></router-link>
+        <router-link class = "select" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
     </div>
     <div class = "present">
         <router-view></router-view>
     </div> 
+    <div class = "footer">Hello from Wuhan © 2014-2018 Muxistudio</div>
   </div>
 </template>
 
@@ -27,8 +29,9 @@ export default {
 <style lang = "scss">
 $windowMin: 300px;
 $picWidth: 156px;
-$picHeight: 250px;
+$picHeight: 227px;
 $linkBorder: 3px;
+$linkWidth: 150px;
 
 html, body{
   width: 100%;
@@ -38,47 +41,62 @@ html{
   min-width: $windowMin;
 }
 body{
-  background: #e7e8ea;
+  background: white;
 }
 .navigation{
-  height: 30px;
+  height: 40px;
   width: 100%;
-  background-color: #363943;
-  line-height: 30px;
+  line-height: 40px;
   /*子元素居中*/
   display: -webkit-flex;
   display: flex;
   justify-content: center;
+  border-bottom: 3px solid #00a0e9; 
 }
 .select{
   display: inline-block;
-  font-size: 25px;
-  color: white;
+  font-size: 18px;
+  color: #191743;
   width: 8%;
   text-decoration: none;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-left: 1%;
+  margin-right: 1%;
   text-align: center;
 }
 /*  .router-link-active指定激活样式  */
 .router-link-active{
-  .active{ 
-    background: #27a5f5;
-  }
+    color: #40b8ef;
 }
 .present{
-  width: 90%;
-  margin: 30px auto 0 auto;
+  min-height: 540px;
   padding: 0 3% 20px 3%;
-  background-color: #f3f3f3;
+  background-color: #f4f6f8;
+  border-bottom: 4px solid #e5e5e5;
 }
-.picture{
+.footer{
+  text-align: center;
+  height: 72px;
+  line-height: 72px;
+  color: #bfbfbf;
+  font-size: 18px;
+}
+.pic{
   margin-top: 20px;
-  box-shadow: 10px 10px 5px #888888;
+}
+.block{
+  display: block;
+}
+.mask{
+  filter: brightness(10%);
+}
+.prompt{
+  margin-top: 100px;
+  color: white; 
 }
 .tran{
   width: $picWidth;
   height: 0;
+  overflow: hidden;
 }
 .pos{
   /*以此为参照，读取offsetLeft值*/
@@ -95,7 +113,7 @@ body{
   line-height: $picWidth;
   text-align: center;
   opacity: 0; 
-  z-index: 1;
+  z-index: 10;
   transition: opacity 2s;
   position: absolute;
   background: url(/static/qr.png);
@@ -107,17 +125,17 @@ body{
   transition: all 2s;
 } 
 .link::before{
-    border-width: 0 $linkBorder;
-    width: 100%;
-    height: 0;
-    top: 50%;    /*定义初始位置*/
-    left: -1 * $linkBorder;
+  width: $linkWidth;
+  border-width: 0 $linkBorder;
+  height: 0;
+  top: 50%;    /*定义初始位置*/
+  left: 0;
 }
 .link::after{
     border-width: $linkBorder 0;
     width: 0;
-    height: 100%;
-    top: -1 * $linkBorder;
+    height: $linkWidth;
+    top: 0;
     left: 50%;   /*定义初始位置*/
 }
 .link:hover{
@@ -131,25 +149,12 @@ body{
     width: 100%;
     left:0;
 }
-
-.link:hover{
-  .title{
-    transform: translate(0);
-    opacity: 1;
-  }
-} 
-.blur{
-  -webkit-filter: blur(10px); /* Chrome, Opera */
-       -moz-filter: blur(10px);
-        -ms-filter: blur(10px);    
-            filter: blur(10px);
-}
 .towards{
   display: none;
 }
 /*媒体查询, 移动端*/
 @media screen and (max-width: 800px){
-  .active{
+  .select{
     font-size: 12px;
   }
   .link::before, .link::after{
@@ -157,14 +162,6 @@ body{
   }
   .pos{
     width: $picWidth;
-  }
-  .link{
-    background-image: none;
-    background-color: black;
-  }
-  .title{
-    font-size: 30px;
-    color: white;
   }
 }
 </style>
