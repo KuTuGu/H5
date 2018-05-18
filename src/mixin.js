@@ -6,13 +6,17 @@ export default {
                         <img v-bind:src = "item.path.split(' ')[1]" class = "block" />
                     </div>
                     <div v-bind:class = "{towards: pre}" class = "link">
-                        <p class = "prompt">扫二维码查看完整H5</p>
+                        <!--子元素覆盖住图片，保证悬浮在任何地方都触发链接-->
+                        <div class = "prompt">
+                            <p class = "title">扫二维码查看完整H5</p>
+                        </div>
                     </div>
                 </div>`,
-    data() {
+    data(){
         return {
             //未悬浮时，link堆叠下移
             pre: true,
+            links: ['http://h5.muxixyz.com/freshman', 'http://h5.muxixyz.com/freshman2017', 'http://h5.muxixyz.com/dogs', 'http://h5.muxixyz.com/ccnubox'],
         }
     },
     directives:{
@@ -35,11 +39,10 @@ export default {
                             //利用下面的方法，可以计算图片左上角的坐标，从而确定链接坐标
                             var x = image.offsetLeft;
                             var y = image.offsetTop;
-                            
+
                             var path = image.childNodes[0].src;
-                
                             //如果是最后的图片，直接返回
-                            if(path.split('/').pop() === 'top2.png')
+                            if(path.split('/').pop() === 'continue.png')
                                 return;
 
                             var move = binding.value(i, image, link);
@@ -58,20 +61,20 @@ export default {
                 // "pc端" 直接退出
                 if(window.screen.width > window.screen.height)
                     return;
-                var pics = document.getElementsByClassName('flag'),
+                var pics = document.getElementsByClassName('pic'),
                     len = pics.length;
 
                 for(var i = 0;i < len;i++){
                     pics[i].onclick = (function(i){
                         return function(){
                             var image = pics[i];
-                            //根据名称，选择不同链接
+
                             var path = image.childNodes[0].src;
-                
                             //如果是最后的图片，直接返回
-                            if(path.split('/').pop() === 'top2.png')
+                            if(path.split('/').pop() === 'continue.png')
                                 return;
-                            binding.value();
+
+                            binding.value(image.childNodes[2].src);
                         }
                     })(i)
                 }
@@ -102,8 +105,11 @@ export default {
                 self.pictures[i].path = path;
             }
         },
-        jump(){
-            window.location.href = "https://www.baidu.com";
+        jump(path){
+            var back = path.split('/').pop();
+            var index = back.split('.')[0];
+            var i = index[index.length - 1] - 1;
+            window.location.href = this.links[i];
         }
     },
 }

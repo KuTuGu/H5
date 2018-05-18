@@ -1,9 +1,9 @@
 <template>
   <div id = "app">
-    <input v-focus="conso"
-    <div class = "navigation">
+    <div v-if = "!pc" class = "flag">木犀H5</div>
+    <div class = "navigation" :class = "{side: !pc}">
         <!-- exact确保只有选中才改变颜色 -->
-        <router-link class = "select" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
+        <router-link class = "select" :class = "{linkW: !pc}" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
     </div>
     <div class = "present">
         <router-view></router-view>
@@ -19,19 +19,25 @@ export default {
   name: 'app',
   data(){
     return {
+      pc: true,
       category: [{name:"全部",path:"all"},{name:"招新",path:"hiring"},{name:"节日",path:"festival"},{name:"活动",path:"activity"},{name:"其他",path:"other"}],
     }
+  },
+  created(){
+    if(window.screen.width < window.screen.height)
+      this.pc = false;
   },
   router
 }
 </script>
 
 <style lang = "scss">
-$windowMin: 300px;
+$windowMin: 400px;
 $picWidth: 156px;
-$picHeight: 227px;
-$linkBorder: 3px;
+$picHeight: 283px;
+$Border: 3px;
 $linkWidth: 150px;
+$downHeight: 72px;
 
 html, body{
   width: 100%;
@@ -43,6 +49,15 @@ html{
 body{
   background: white;
 }
+.flag{
+  width: 100%;
+  height: 57px;
+  line-height: 57px;
+  background-color: #00a0e9;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+}
 .navigation{
   height: 40px;
   width: 100%;
@@ -51,27 +66,32 @@ body{
   display: -webkit-flex;
   display: flex;
   justify-content: center;
-  border-bottom: 3px solid #00a0e9; 
+}
+.side{
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
 }
 .select{
   display: inline-block;
   font-size: 18px;
   color: #191743;
   width: 8%;
-  text-decoration: none;
   margin-left: 1%;
   margin-right: 1%;
+  text-decoration: none;
   text-align: center;
 }
 /*  .router-link-active指定激活样式  */
 .router-link-active{
-    color: #40b8ef;
+  border-bottom: $Border solid #00a0e9;
+  color: #40b8ef;
 }
 .present{
   min-height: 540px;
   padding: 0 3% 20px 3%;
   background-color: #f4f6f8;
-  border-bottom: 4px solid #e5e5e5;
+  border-bottom: $Border solid #e5e5e5;
 }
 .footer{
   text-align: center;
@@ -90,8 +110,19 @@ body{
   filter: brightness(10%);
 }
 .prompt{
-  margin-top: 100px;
-  color: white; 
+  position: absolute;
+  width: $picWidth;
+  height: $picHeight;
+  margin-top: -24px;
+}
+.title{
+  height: 20px;
+  line-height: 20px;
+  color: white;
+  /*减去自身高度*/
+  margin-top: $picHeight - $downHeight - 25px;
+  text-align: center;
+
 }
 .tran{
   width: $picWidth;
@@ -114,25 +145,25 @@ body{
   text-align: center;
   opacity: 0; 
   z-index: 10;
-  transition: opacity 2s;
+  transition: opacity 0.5s;
   position: absolute;
   background: url(/static/qr.png);
 }
 .link::before, .link::after{
   content: '';
-  border: $linkBorder solid black;
+  border: $Border solid black;
   position: absolute;
   transition: all 2s;
 } 
 .link::before{
   width: $linkWidth;
-  border-width: 0 $linkBorder;
+  border-width: 0 $Border;
   height: 0;
   top: 50%;    /*定义初始位置*/
   left: 0;
 }
 .link::after{
-    border-width: $linkBorder 0;
+    border-width: $Border 0;
     width: 0;
     height: $linkWidth;
     top: 0;
@@ -157,11 +188,13 @@ body{
   .select{
     font-size: 12px;
   }
-  .link::before, .link::after{
-    border: $linkBorder solid white;
-  }
   .pos{
-    width: $picWidth;
+    width: $picWidth * 2 + 25px;
   }
+}
+.linkW{
+  font-size: 18px;
+  width: 25%;
+  margin: 0;
 }
 </style>
