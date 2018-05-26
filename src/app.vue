@@ -2,8 +2,9 @@
   <div id = "app">
     <div v-if = "!pc" class = "flag">木犀H5</div>
     <div class = "navigation" :class = "{side: !pc}">
+        <img src  = "../static/logo.png" v-if = "pc" class = "logo"/>
         <!-- exact确保只有选中才改变颜色 -->
-        <router-link class = "select" :class = "{linkW: !pc}" v-for = "(item, index) in this.category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
+        <router-link class = "select" :class = "{linkW: !pc}" v-for = "(item, index) in category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
     </div>
     <div class = "present">
         <router-view></router-view>
@@ -34,7 +35,7 @@ export default {
 <style lang = "scss">
 $windowMin: 400px;
 $picWidth: 156px;
-$picHeight: 283px;
+$picHeight: 288px;
 $Border: 3px;
 $linkWidth: 150px;
 $downHeight: 72px;
@@ -54,7 +55,7 @@ body{
   height: 57px;
   line-height: 57px;
   background-color: #00a0e9;
-  font-size: 18px;
+  font-size: 12px;
   color: white;
   text-align: center;
 }
@@ -67,6 +68,11 @@ body{
   display: flex;
   justify-content: center;
 }
+.logo{
+  width: 90px;
+  height: 40px;
+  
+}
 .side{
   display: -webkit-flex;
   display: flex;
@@ -74,9 +80,9 @@ body{
 }
 .select{
   display: inline-block;
-  font-size: 18px;
+  font-size: 12px;
   color: #191743;
-  width: 8%;
+  width: 6%;
   margin-left: 1%;
   margin-right: 1%;
   text-decoration: none;
@@ -88,7 +94,7 @@ body{
   color: #40b8ef;
 }
 .present{
-  min-height: 540px;
+  min-height: 615px;
   padding: 0 3% 20px 3%;
   background-color: #f4f6f8;
   border-bottom: $Border solid #e5e5e5;
@@ -98,13 +104,14 @@ body{
   height: 72px;
   line-height: 72px;
   color: #bfbfbf;
-  font-size: 18px;
+  font-size: 12px;
 }
 .pic{
   margin-top: 20px;
 }
 .block{
   display: block;
+  width: $picWidth;
 }
 .mask{
   filter: brightness(10%);
@@ -120,7 +127,7 @@ body{
   line-height: 20px;
   color: white;
   /*减去自身高度*/
-  margin-top: $picHeight - $downHeight - 25px;
+  margin-top: $picHeight - $downHeight - 28px;
   text-align: center;
 
 }
@@ -180,20 +187,13 @@ body{
     width: 100%;
     left:0;
 }
-.towards{
-  display: none;
-}
 /*媒体查询, 移动端*/
 @media screen and (max-width: 800px){
-  .select{
-    font-size: 12px;
-  }
   .pos{
     width: $picWidth * 2 + 25px;
   }
 }
 .linkW{
-  font-size: 18px;
   width: 25%;
   margin: 0;
 }
