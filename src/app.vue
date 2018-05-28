@@ -154,7 +154,6 @@ body{
   z-index: 10;
   transition: opacity 0.5s;
   position: absolute;
-  background: url(/static/qr.png);
 }
 .link::before, .link::after{
   content: '';

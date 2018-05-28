@@ -16,19 +16,19 @@ router.get('/', function(ctx, next){
         ctx.body = template({})
 });
 
-router.get('/components/hiring', function(ctx, next){
+router.get('/hiring', function(ctx, next){
     let template = swig.compileFile(path.resolve(templateRoot, "hiring.html"));
     ctx.body = template({})
 });
-router.get('/components/festival', function(ctx, next){
+router.get('/festival', function(ctx, next){
     let template = swig.compileFile(path.resolve(templateRoot, "festival.html"));
     ctx.body = template({})
 });
-router.get('/components/activity', function(ctx, next){
+router.get('/activity', function(ctx, next){
     let template = swig.compileFile(path.resolve(templateRoot, "activity.html"));
     ctx.body = template({})
 });
-router.get('/components/other', function(ctx, next){
+router.get('/other', function(ctx, next){
     let template = swig.compileFile(path.resolve(templateRoot, "other.html"));
     ctx.body = template({})
 });
