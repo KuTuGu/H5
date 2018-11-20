@@ -2,7 +2,7 @@
   <div id = "app">
     <div v-if = "!pc" class = "flag">木犀H5</div>
     <div class = "navigation" :class = "{side: !pc}">
-        <img src  = "../static/logo.png" v-if = "pc" class = "logo"/>
+        <img src  = "../static/img/logo.png" v-if = "pc" class = "logo"/>
         <!-- exact确保只有选中才改变颜色 -->
         <router-link class = "select" :class = "{linkW: !pc}" v-for = "(item, index) in category" :key = "index" :to = "{name: item.path}" exact>{{item.name}}</router-link>
     </div>

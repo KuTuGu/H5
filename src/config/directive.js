@@ -30,7 +30,7 @@ export default {
                         link.style.top = y + imgHeight / 2 - imgWidth / 2 - 40 + 'px';
                         link.style.left = x + 'px'; 
 
-                        link.style.background = "url('/static/qrCode" + i + ".png')";
+                        link.style.background = "url('../static/img/qrCode" + i + ".png')";
                         link.style.backgroundSize = "contain";
                     }
                 })(i)
